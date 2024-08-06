@@ -40,7 +40,7 @@ jobs:
 
       - name: Create branch and PR
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           BATCH_INFO="${{ github.event.inputs.video_name }} Batch ${{ github.event.inputs.batch_number }}"
           BRANCH_NAME="labeling-task-${BATCH_INFO// /-}"
@@ -52,7 +52,7 @@ jobs:
           echo "Labeling task for $BATCH_INFO" > labeling_task.md
           git add labeling_task.md
           git commit -m "Initialize labeling task for $BATCH_INFO"
-          git push -u origin $BRANCH_NAME
+          git push -u https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git $BRANCH_NAME
 
           PR_URL=$(gh pr create --title "Labeling Task: $BATCH_INFO" --body "This PR is for the labeling task: $BATCH_INFO. Please label the images in this batch and commit your changes to this branch." --base main --head $BRANCH_NAME)
 
