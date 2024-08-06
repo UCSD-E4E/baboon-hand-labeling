@@ -10,50 +10,30 @@ on:
         description: 'Batch Number'
         required: true
 
+permissions:
+  contents: write
+  issues: write
+
 jobs:
   create_labeling_task:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Create Issue
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+      - name: Set Up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
         run: |
-          ISSUE_TITLE="Labeling Task: ${{ github.event.inputs.video_name }} Batch ${{ github.event.inputs.batch_number }}"
-          ISSUE_BODY="Please label the images in ${{ github.event.inputs.video_name }}/batch_${{ github.event.inputs.batch_number }}/frames"
-          
-          # Create 'labeling' label if it doesn't exist, or update it if it does
-          gh label create labeling --color "#0E8A16" --description "Tasks for labeling images" --force
-          
-          # Attempt to create the issue and capture any error message
-          ISSUE_RESULT=$(gh issue create --title "$ISSUE_TITLE" --body "$ISSUE_BODY" --label "labeling" --repo ${{ github.repository }} --auth $GH_PAT 2>&1)
-          if [ $? -ne 0 ]; then
-            echo "Error creating issue: $ISSUE_RESULT"
-            exit 1
-          fi
-          
-          ISSUE_NUMBER=$(echo "$ISSUE_RESULT" | grep -oP '#\K\d+')
-          echo "Created issue #$ISSUE_NUMBER"
-          echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
+          python -m pip install --upgrade pip
+          python -m pip install PyGithub
 
-      - name: Create branch and PR
+      - name: Create Issue and Branch
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          BATCH_INFO="${{ github.event.inputs.video_name }} Batch ${{ github.event.inputs.batch_number }}"
-          BRANCH_NAME="labeling-task-${BATCH_INFO// /-}"
-
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git checkout -b $BRANCH_NAME
-
-          echo "Labeling task for $BATCH_INFO" > labeling_task.md
-          git add labeling_task.md
-          git commit -m "Initialize labeling task for $BATCH_INFO"
-          git push -u https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git $BRANCH_NAME
-
-          PR_URL=$(gh pr create --title "Labeling Task: $BATCH_INFO" --body "This PR is for the labeling task: $BATCH_INFO. Please label the images in this batch and commit your changes to this branch." --base main --head $BRANCH_NAME)
-
-          gh issue comment $ISSUE_NUMBER --body "A new branch and pull request have been created for this labeling task. You can find the pull request here: $PR_URL"
+          python create_labeling_task.py "${{ github.event.inputs.video_name }}" "${{ github.event.inputs.batch_number }}"
