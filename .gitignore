@@ -1,5 +1,5 @@
 annotation_format.txt
 
+# Exclude all JPG files
 *.jpg
-
-!DJI_*/batch_*/frames/
+*.zip

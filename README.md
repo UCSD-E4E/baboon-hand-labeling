@@ -34,12 +34,15 @@ This project aims to label baboons in drone footage using the Labelfficient tool
    git checkout -b labeling-task-[Video-Name]-Batch-[Number]
    ```
 
-2. Pull only the frames for your assigned batch:
-   ```
-   git lfs pull -I "[Video Name]/batch_[Number]/frames/*"
-   ```
+2. Locate the "BOM_Labeling_Party" folder in the root of the NAS. It has a similar folder structure to this repository.
 
-3. Label the images using Labelfficient:
+3. Find the zip file corresponding to your assigned batch in the NAS folder structure.
+
+4. Download the zip file and place it in the same relative folder within your cloned repository.
+
+5. Unzip the file in place.
+
+6. Label the images using Labelfficient:
    ```
    cd labelfficient
    python gui.py
@@ -49,16 +52,16 @@ This project aims to label baboons in drone footage using the Labelfficient tool
    C:\Users\username\baboon-hand-labeling\DJI_20230925154521_0008_D_(30s)\batch_2\frames
    ```
 
-4. After completing the batch, commit your changes:
+7. After completing the batch, commit your changes:
    ```
    git add "[Video Name]/batch_[Number]/frames_Annotations"
    git commit -m "Labeled [Video Name] batch [Number]"
    git push -u origin labeling-task-[Video-Name]-Batch-[Number]
    ```
 
-5. Create a pull request on GitHub for your completed batch.
+8. Create a pull request on GitHub for your completed batch.
 
-6. A maintainer will review your work and merge the pull request if everything looks good.
+9. A maintainer will review your work and merge the pull request if everything looks good.
 
 ## Labeling Guidelines
 
