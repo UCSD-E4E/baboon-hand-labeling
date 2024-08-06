@@ -30,7 +30,7 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install PyGithub
+          python -m pip install PyGithub GitPython
 
       - name: Create Issue and Branch
         env:
