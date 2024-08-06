@@ -7,31 +7,25 @@ This project aims to label baboons in drone footage using the Labelfficient tool
 ### Prerequisites
 
 - [Anaconda](https://www.anaconda.com/products/distribution)
-- [Git LFS](https://git-lfs.github.com/)
 
 ### Setup
 
 1. Clone this repository:
    ```
-   git clone git@github.com:UCSD-E4E/baboon-hand-labeling.git
+   git clone https://github.com/UCSD-E4E/baboon-hand-labeling.git
    cd baboon-hand-labeling
    ```
 
-2. Install Git LFS and pull the Labelfficient submodule:
-   ```
-   git lfs install
-   git submodule update --init --recursive
-   ```
-
-3. Set up the Labelfficient environment:
+2. Set up the Labelfficient environment:
    Refer to the [Labelfficient README](labelfficient/README.md) for instructions on how to set up the environment.
    Make sure that the active directory is `labelfficient` otherwise you might run into issues.
 
 ## Labeling Process
 
-1. Create a new branch for your assigned batch:
+1. Create a new branch for your assigned batch and immediately publish it:
    ```
-   git checkout -b labeling-task-[Video-Name]-Batch-[Number]
+   git checkout -b "labeling-task-[Video-Name]-Batch-[Number]"
+   git push -u origin "labeling-task-[Video-Name]-Batch-[Number]"
    ```
 
 2. Locate the "BOM_Labeling_Party" folder in the root of the NAS. It has a similar folder structure to this repository.
@@ -56,7 +50,7 @@ This project aims to label baboons in drone footage using the Labelfficient tool
    ```
    git add "[Video Name]/batch_[Number]/frames_Annotations"
    git commit -m "Labeled [Video Name] batch [Number]"
-   git push -u origin labeling-task-[Video-Name]-Batch-[Number]
+   git push
    ```
 
 8. Create a pull request on GitHub for your completed batch.
