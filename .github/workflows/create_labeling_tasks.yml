@@ -35,6 +35,6 @@ jobs:
 
       - name: Create Issue and Branch
         env:
-          GH_TOKEN: ${{ secrets.PAT }} 
+          GH_TOKEN: ${{ secrets.BOMLABEL }} 
         run: |
           python create_labeling_task.py "${{ github.event.inputs.video_name }}" "${{ github.event.inputs.batch_number }}"
