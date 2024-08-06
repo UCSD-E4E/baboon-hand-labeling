@@ -17,7 +17,7 @@ This project aims to label baboons in drone footage using the Labelfficient tool
    ```
 
 2. Set up the Labelfficient environment:
-   Refer to the [Labelfficient README](labelfficient/README.md) for instructions on how to set up the environment.
+   Refer to the [Labelfficient README](https://github.com/dajes/labelfficient/blob/ca4b00f5f95ed206f488c95f5068b38570903aab/README.md) for instructions on how to set up the environment.
    Make sure that the active directory is `labelfficient` otherwise you might run into issues.
 
 ## Labeling Process
