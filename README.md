@@ -112,15 +112,20 @@ We use GitHub Actions to automate the creation of labeling tasks. Here's how it 
 
 ### General Tips for Labeling
 
-- Make the bounding box as tight as possible around the subject.
-- If unsure about whether to label something, it's better to label it and make a note in your pull request comment.
-- Consistency is key. Try to maintain the same criteria for labeling across all frames.
-
-## Tips
-
 - While labeling, it's helpful to open the images in your operating system's gallery application (like Windows "Photos") and flip through them. This allows you to see the full resolution images, as the labeling software compresses them for display.
-
 - Instead of trying to label all baboons on a single frame before moving to the next, it may be easier to focus on one baboon and label it across all frames, then move on to the next baboon. This approach can help you track individual baboons more consistently.
+
+## For Maintainers: Creating New Labeling Tasks
+
+To create a new labeling task:
+
+1. Go to the "Actions" tab in the GitHub repository.
+2. Click on the "Manage Labeling Tasks" workflow.
+3. Click "Run workflow".
+4. Enter the video name (e.g., DJI_20230925154521_0008_D_(30s)) and batch number.
+5. Click "Run workflow" to start the process.
+
+This will automatically create an issue, a branch, and a pull request for the new labeling task.
 
 ## Acknowledgments
 
