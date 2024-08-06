@@ -24,8 +24,8 @@ jobs:
           ISSUE_TITLE="Labeling Task: ${{ github.event.inputs.video_name }} Batch ${{ github.event.inputs.batch_number }}"
           ISSUE_BODY="Please label the images in ${{ github.event.inputs.video_name }}/batch_${{ github.event.inputs.batch_number }}/frames"
           
-          # Create 'labeling' label if it doesn't exist
-          gh label create labeling --color "#0E8A16" --description "Tasks for labeling images" || true
+          # Create 'labeling' label if it doesn't exist, or update it if it does
+          gh label create labeling --color "#0E8A16" --description "Tasks for labeling images" --force
           
           # Attempt to create the issue and capture any error message
           ISSUE_RESULT=$(gh issue create --title "$ISSUE_TITLE" --body "$ISSUE_BODY" --label "labeling" 2>&1)
@@ -36,6 +36,7 @@ jobs:
           
           ISSUE_NUMBER=$(echo "$ISSUE_RESULT" | grep -oP '#\K\d+')
           echo "Created issue #$ISSUE_NUMBER"
+          echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
 
       - name: Create branch and PR
         env:
