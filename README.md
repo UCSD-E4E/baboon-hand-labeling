@@ -28,7 +28,7 @@ This project aims to label baboons in drone footage using the Labelfficient tool
    git push -u origin "labeling-task-[Video-Name]-Batch-[Number]"
    ```
 
-2. Locate the "BOM_Labeling_Party" folder in the root of the NAS. It has a similar folder structure to this repository.
+2. Locate the "labeling_share/baboon-hand-labeling" folder in the root of the NAS. It has a similar folder structure to this repository.
 
 3. Find the zip file corresponding to your assigned batch in the NAS folder structure.
 
