@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
   issues: write
 
 jobs:
@@ -34,6 +35,6 @@ jobs:
 
       - name: Create Issue and Branch
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PAT }} 
         run: |
           python create_labeling_task.py "${{ github.event.inputs.video_name }}" "${{ github.event.inputs.batch_number }}"
