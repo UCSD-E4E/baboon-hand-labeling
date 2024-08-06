@@ -13,7 +13,7 @@ This project aims to label baboons in drone footage using the Labelfficient tool
 
 1. Clone this repository:
    ```
-   git clone https://github.com/UCSD-E4E/baboon-hand-labeling.git
+   git clone git@github.com:UCSD-E4E/baboon-hand-labeling.git
    cd baboon-hand-labeling
    ```
 
