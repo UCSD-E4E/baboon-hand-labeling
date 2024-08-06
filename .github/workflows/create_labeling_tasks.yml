@@ -23,6 +23,10 @@ jobs:
         run: |
           ISSUE_TITLE="Labeling Task: ${{ github.event.inputs.video_name }} Batch ${{ github.event.inputs.batch_number }}"
           ISSUE_BODY="Please label the images in ${{ github.event.inputs.video_name }}/batch_${{ github.event.inputs.batch_number }}/frames"
+          
+          # Create 'labeling' label if it doesn't exist
+          gh label create labeling --color "#0E8A16" --description "Tasks for labeling images" || true
+          
           ISSUE_NUMBER=$(gh issue create --title "$ISSUE_TITLE" --body "$ISSUE_BODY" --label "labeling" | grep -oP '#\K\d+')
           echo "Created issue #$ISSUE_NUMBER"
 
