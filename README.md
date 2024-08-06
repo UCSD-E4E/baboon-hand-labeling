@@ -27,32 +27,19 @@ This project aims to label baboons in drone footage using the Labelfficient tool
    Refer to the [Labelfficient README](labelfficient/README.md) for instructions on how to set up the environment.
    Make sure that the active directory is `labelfficient` otherwise you might run into issues.
 
-## Automated Labeling Tasks
+## Labeling Process
 
-We use GitHub Actions to automate the creation of labeling tasks. Here's how it works:
+1. Create a new branch for your assigned batch:
+   ```
+   git checkout -b labeling-task-[Video-Name]-Batch-[Number]
+   ```
 
-1. A project maintainer creates a new issue with the title format: "Labeling Task: [Video Name] Batch [Number]"
-   Example: "Labeling Task: DJI_20230925154521_0008_D_(30s) Batch 2"
+2. Pull only the frames for your assigned batch:
+   ```
+   git lfs pull -I "[Video Name]/batch_[Number]/frames/*"
+   ```
 
-2. GitHub Actions will automatically:
-   - Create a new branch for this task
-   - Create a pull request for the new branch
-   - Comment on the issue with a link to the pull request
-
-3. To start labeling:
-   - Assign yourself to the issue
-   - Go to the pull request linked in the issue
-   - Check out the branch locally:
-     ```
-     git fetch origin
-     git checkout labeling-task-[Video-Name]-Batch-[Number]
-     ```
-   - Pull only the frames for your assigned batch:
-     ```
-     git lfs pull -I "[Video Name]/batch_[Number]/frames/*"
-     ```
-
-4. Label the images using Labelfficient:
+3. Label the images using Labelfficient:
    ```
    cd labelfficient
    python gui.py
@@ -62,18 +49,16 @@ We use GitHub Actions to automate the creation of labeling tasks. Here's how it 
    C:\Users\username\baboon-hand-labeling\DJI_20230925154521_0008_D_(30s)\batch_2\frames
    ```
 
-5. After completing the batch, commit your changes:
+4. After completing the batch, commit your changes:
    ```
    git add "[Video Name]/batch_[Number]/frames_Annotations"
    git commit -m "Labeled [Video Name] batch [Number]"
-   git push
+   git push -u origin labeling-task-[Video-Name]-Batch-[Number]
    ```
 
-6. Go back to the pull request on GitHub:
-   - Leave a comment saying you've completed the task
-   - A maintainer will review your work and merge the pull request if everything looks good
+5. Create a pull request on GitHub for your completed batch.
 
-7. Close the GitHub issue for your completed batch.
+6. A maintainer will review your work and merge the pull request if everything looks good.
 
 ## Labeling Guidelines
 
@@ -114,18 +99,6 @@ We use GitHub Actions to automate the creation of labeling tasks. Here's how it 
 
 - While labeling, it's helpful to open the images in your operating system's gallery application (like Windows "Photos") and flip through them. This allows you to see the full resolution images, as the labeling software compresses them for display.
 - Instead of trying to label all baboons on a single frame before moving to the next, it may be easier to focus on one baboon and label it across all frames, then move on to the next baboon. This approach can help you track individual baboons more consistently.
-
-## For Maintainers: Creating New Labeling Tasks
-
-To create a new labeling task:
-
-1. Go to the "Actions" tab in the GitHub repository.
-2. Click on the "Manage Labeling Tasks" workflow.
-3. Click "Run workflow".
-4. Enter the video name (e.g., DJI_20230925154521_0008_D_(30s)) and batch number.
-5. Click "Run workflow" to start the process.
-
-This will automatically create an issue, a branch, and a pull request for the new labeling task.
 
 ## Acknowledgments
 
