@@ -27,7 +27,14 @@ jobs:
           # Create 'labeling' label if it doesn't exist
           gh label create labeling --color "#0E8A16" --description "Tasks for labeling images" || true
           
-          ISSUE_NUMBER=$(gh issue create --title "$ISSUE_TITLE" --body "$ISSUE_BODY" --label "labeling" | grep -oP '#\K\d+')
+          # Attempt to create the issue and capture any error message
+          ISSUE_RESULT=$(gh issue create --title "$ISSUE_TITLE" --body "$ISSUE_BODY" --label "labeling" 2>&1)
+          if [ $? -ne 0 ]; then
+            echo "Error creating issue: $ISSUE_RESULT"
+            exit 1
+          fi
+          
+          ISSUE_NUMBER=$(echo "$ISSUE_RESULT" | grep -oP '#\K\d+')
           echo "Created issue #$ISSUE_NUMBER"
 
       - name: Create branch and PR
