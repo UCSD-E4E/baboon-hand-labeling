@@ -1,0 +1,16 @@
+<annotation>
+    <filename>0301</filename>
+    <size>
+        <width>3840</width>
+        <height>2160</height>
+    </size>
+    <object>
+        <name>baboon</name>
+        <bndbox>
+            <xmin>1009</xmin>
+            <ymin>1468</ymin>
+            <xmax>1059</xmax>
+            <ymax>1498</ymax>
+        </bndbox>
+    </object>
+</annotation>

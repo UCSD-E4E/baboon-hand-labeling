@@ -1,0 +1,3 @@
+[submodule "labelfficient"]
+	path = labelfficient
+	url = https://github.com/dajes/labelfficient

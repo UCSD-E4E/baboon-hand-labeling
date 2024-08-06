@@ -1,0 +1,40 @@
+name: Create Labeling Task
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  create_labeling_task:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.title, 'Labeling Task:')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create branch and PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Extract batch info from issue title
+          BATCH_INFO=$(echo "${{ github.event.issue.title }}" | sed 's/Labeling Task: //')
+          BRANCH_NAME="labeling-task-${BATCH_INFO// /-}"
+
+          # Create and checkout new branch
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b $BRANCH_NAME
+
+          # Create a placeholder file to commit
+          echo "Labeling task for $BATCH_INFO" > labeling_task.md
+
+          # Commit and push the new branch
+          git add labeling_task.md
+          git commit -m "Initialize labeling task for $BATCH_INFO"
+          git push -u origin $BRANCH_NAME
+
+          # Create a pull request
+          PR_URL=$(gh pr create --title "Labeling Task: $BATCH_INFO" --body "This PR is for the labeling task: $BATCH_INFO. Please label the images in this batch and commit your changes to this branch." --base main --head $BRANCH_NAME)
+
+          # Comment on the issue with the PR link
+          gh issue comment "${{ github.event.issue.number }}" --body "A new branch and pull request have been created for this labeling task. You can find the pull request here: $PR_URL"
