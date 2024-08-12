@@ -1,5 +1,5 @@
 <annotation>
-    <filename>0001</filename>
+    <filename>0116</filename>
     <size>
         <width>3840</width>
         <height>2160</height>
@@ -7,19 +7,19 @@
     <object>
         <name>baboon</name>
         <bndbox>
-            <xmin>1861.0</xmin>
-            <ymin>1801.0</ymin>
-            <xmax>1886.0</xmax>
-            <ymax>1834.0</ymax>
+            <xmin>1803.0</xmin>
+            <ymin>1734.0</ymin>
+            <xmax>1830.0</xmax>
+            <ymax>1769.0</ymax>
         </bndbox>
     </object>
     <object>
         <name>baboon</name>
         <bndbox>
-            <xmin>1946.0</xmin>
-            <ymin>1559.0</ymin>
-            <xmax>1998.0</xmax>
-            <ymax>1589.0</ymax>
+            <xmin>1837.0</xmin>
+            <ymin>1531.0</ymin>
+            <xmax>1871.0</xmax>
+            <ymax>1551.0</ymax>
         </bndbox>
     </object>
 </annotation>
